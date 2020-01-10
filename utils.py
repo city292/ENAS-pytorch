@@ -144,7 +144,8 @@ def update_lr(optimizer, lr):
         param_group['lr'] = lr
 
 def batchify(data, bsz, use_cuda):
-    # code from https://github.com/pytorch/examples/blob/master/word_language_model/main.py 
+    # code from https://github.com/pytorch/examples/blob/master/word_language_model/main.py
+    print(data)
     nbatch = data.size(0) // bsz
     data = data.narrow(0, 0, nbatch * bsz)
     data = data.view(bsz, -1).t().contiguous()

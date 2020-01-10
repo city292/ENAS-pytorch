@@ -5,24 +5,26 @@ import torchvision.transforms as transforms
 
 class Image(object):
     def __init__(self, args):
-        if args.dataset == 'cifar10':
-            Dataset = datasets.CIFAR10
 
-            mean = [0.49139968, 0.48215827, 0.44653124]
-            std = [0.24703233, 0.24348505, 0.26158768]
+        Dataset = datasets.CIFAR10
 
-            normalize = transforms.Normalize(mean, std)
+        mean = [0.49139968, 0.48215827, 0.44653124]
+        std = [0.24703233, 0.24348505, 0.26158768]
 
-            transform = transforms.Compose([
-                transforms.RandomCrop(32, padding=4),
-                transforms.RandomHorizontalFlip(),
-                transforms.ToTensor(),
-                normalize,
-            ])
-        elif args.dataset == 'MNIST':
-            Dataset = datasets.MNIST
-        else:
-            raise NotImplementedError(f'Unknown dataset: {args.dataset}')
+        normalize = transforms.Normalize(mean, std)
+
+        transform = transforms.Compose([
+            transforms.RandomCrop(32, padding=4),
+            transforms.RandomHorizontalFlip(),
+            transforms.ToTensor(),
+            normalize,
+        ])
+        # if args.dataset == 'cifar':
+        #
+        # elif args.dataset == 'MNIST':
+        #     Dataset = datasets.MNIST
+        # else:
+        #     raise NotImplementedError(f'Unknown dataset: {args.dataset}')
 
         self.train = t.utils.data.DataLoader(
             Dataset(root='./data', train=True, transform=transform, download=True),
